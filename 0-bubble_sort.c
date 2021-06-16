@@ -1,19 +1,6 @@
 #include "sort.h"
 
 /**
- * swap - swaps the two given elements data
- * @a: the first element
- * @b: the second element
- */
-
-void swap(int *a, int *b)
-{
-	int temp = *a;
-	*a = *b;
-	*b = temp;
-}
-
-/**
  * bubble_sort - sorts the given array in asscending order
  * @array: the array to be sorted
  * @size: The sieze of the array
@@ -31,7 +18,10 @@ void bubble_sort(int *array, size_t size)
 		{
 			if (array[j] > array[j + 1])
 			{
-				swap(&array[j], &array[j + 1]);
+				temp = array[j];
+				array[j] = array[j + 1];
+				array[j + 1] = temp;
+
 				print_array(array, size);
 			}
 		}
