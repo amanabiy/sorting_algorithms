@@ -1,19 +1,21 @@
 #include "sort.h"
+/**
+ * swap - swap the nodes
+ * @a: the first node
+ * @b: the 2nd node
+ */
 
-void swap_ptr(listint_t *ptr, lisint_t *ptr2)
+void swap(listint_t *a, listint_t *b)
 {
-	listint_t *temp = *ptr;
-	ptr = ptr2;
-	ptr2 = temp;
-}
+	if (a->prev)
+		a->prev->next = b;
+	if (b->next)
+		b->next->prev = a;
+	a->next = b->next;
+	b->prev = a->prev;
+	a->prev = b;
+	b->next = a;
 
-void swap_node(listint_t *ptr, listint_t *ptr2)
-{
-        listint_t temp = ptr->prev;
-	(*ptr)->next = (*ptr2)->next;
-	(*ptr)->prev = ptr2;
-	(*ptr2)->prev = temp;
-	(*ptr2)->next = ptr;
 }
 
 /**
@@ -23,21 +25,26 @@ void swap_node(listint_t *ptr, listint_t *ptr2)
 
 void insertion_sort_list(listint_t **list)
 {
-	int i, key, j;
-	listint_t *temp, *temp2, *temp3;
-	listint_t *prev, *next;
+	listint_t *i, *j;
 
-	temp = *list;
-	for (i = 1; temp != NULL; i++)
+	if (!list || !*list || !(*list)->next)
+		return;
+	i = (*list)->next;
+	while (i)
 	{
-		key = temp->n;
-		j = i - 1;
-		while (j >= 0 && key < temp->n)
+		j = i;
+		while (j && j->prev)
 		{
-			temp2 = temp->prev;
-			swap(temp, temp2);
-			temp = temp->prev;
+			if (j->prev->n > j->n)
+			{
+				swap(j->prev, j);
+				if (!j->prev)
+					*list = j;
+				print_list((const listint_t *)*list);
+			}
+			else
+				j = j->prev;
 		}
-		temp = temp->next;
+		i = i->next;
 	}
 }
