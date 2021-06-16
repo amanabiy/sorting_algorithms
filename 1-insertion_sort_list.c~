@@ -1,0 +1,35 @@
+#include "sort.h"
+
+/**
+ * insertion_sort_list - sorts a doubly linkded list of integers in ascending
+ * @list: the list to be sorted
+ */
+
+void insertion_sort_list(listint_t **list)
+{
+	int i, key, j;
+	listint_t *temp, *temp2, *temp3;
+	listint_t *prev, *next;
+	
+	temp = *list;
+	for (i = 1; temp != NULL; i++)
+	{
+		key = temp->n;
+		j = i - 1;
+		while (j >= 0 && key < temp->n)
+		{
+			temp2 = temp->prev;
+			prev = temp2->prev;
+			next = temp2->next;
+
+			temp2->next = temp->next;
+			temp2->prev = temp->prev;
+
+			temp->next = temp3->next;
+			temp->prev = temp3->prev;
+
+			print_list(temp);
+		}
+		temp = temp->next;
+	}
+}
